@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+	<title>WebSocket Tile 3D</title>
+	<style type="text/css">
+		#fps{
+			position: absolute;
+			color: #ff0000;
+			padding: 5px;
+			font-weight: bolder;
+			white-space: nowrap;
+		}
+	</style>
+</head>
+<body>
+<canvas id="main_canvas" width="1030" height="700"></canvas>
+<span id="fps"></span>
+<br>
+* 説明<br>
+<pre>
+- 赤いペンギンが自分で、緑のペンギンが他のプレイヤーです。
+- ブロックを押して、他のプレイヤーを挟むことで、他のプレイヤーを倒せます。
+- 倒されたらF5で復活できます。
+</pre>
+* 操作方法<br>
+<pre>
+- 矢印キー: 移動 or 方向転換 or ブロックを押す
+</pre>
+* コピーライト<br>
+このゲームのキャラクタの画像は、<a href="http://opengameart.org">OpenGameArg.org</a>が配布している3D画像素材の<a href="http://opengameart.org/content/tux">tux</a>を使用してます。<br>
+このゲームの床の画像は、<a href="http://www.tekepon.net/fsm">REFMAP</a>が配布しているフリー画像素材を使用してます。本画像を、このゲームを遊ぶ以外の用途には使用しないで下さい。<br>
+<script type="text/javascript">
+	var myModules = {};
+</script>
+<script type="text/javascript" src="lib/scenejs/scenejs.js"></script>
+<script type="text/javascript" src="../lib/my/my_client_and_server.js"></script>
+<script type="text/javascript">
+	var shorthands = ['DP', 'LOG', 'ASSERT', 'DIR', 'DPD'];
+	for (var i = 0, len = shorthands.length; i < len; i++) {
+		window[shorthands[i]] = myModules.mycs[shorthands[i]];
+	}
+</script>
+<script type="text/javascript" src="../client_and_server/client_and_server.js"></script><!-- Don't add defer for loading socket.io. --> 
+<script type="text/javascript">
+	// Can't load in script's load listener. It is too late.
+	if (myModules.cs.USE_SOCKETIO) {
+		document.write('<script type="text/javascript" src="../lib/socket.io-client/socket.io.js"></scri' + 'pt>');
+	}
+</script>
+<script type="text/javascript">
+	// Don't merge upper script tag. WEB_SOCKET_SWF_LOCATION will be overwritten by evaluation of script tag in document.write().
+	if (myModules.cs.USE_SOCKETIO) {
+		WEB_SOCKET_SWF_LOCATION = '../lib/socket.io-client/lib/vendor/web-socket-js/WebSocketMain.swf';
+	}
+</script>
+<script type="text/javascript" defer src="../lib/my/my_client.js"></script>
+<script type="text/javascript" defer src="blender.js"></script>
+<script type="text/javascript" defer src="client.js"></script>
+</body>
+
+</html>

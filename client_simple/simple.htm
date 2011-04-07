@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+	<META http-equiv=content-type content="text/html; charset=UTF-8">
+	<title>WebSocket Tile</title>
+<style TYPE="text/css">
+<!--
+body{
+}
+#field_div{
+	background-color: #000000;
+	background-image: url('img/field.png');
+	position: relative;
+}
+.player, .hard_block, .ice_block{
+	position: absolute;
+	overflow: hidden;
+	display: inline-block;
+}
+.player img, .hard_block img, .ice_block img{
+	position: absolute;
+}
+#output{
+	width: 400px;
+	height: 200px;
+	display: none;
+}
+-->
+</style>
+</head>
+<body>
+<div id="field_div">
+</div>
+<br>
+* 説明<br>
+<pre>
+- 赤いキャラクターがプレイヤーで、緑のキャラクターが他のプレイヤーです。接続しているプレイヤーの数だけいます。
+- 薄いブロックを押して、他のプレイヤーを挟むことで、他のプレイヤーを消せます。
+- 自分が倒されたらF5で復活できます。
+</pre>
+* 操作方法<br>
+<pre>
+- 矢印キー: 移動 or ブロックを押す
+</pre>
+* コピーライト<br>
+このソフトは、<a href="http://www.tekepon.net/fsm">REFMAP</a>が配布しているフリー画像素材を加工して使用しています。このソフト内で使用されている画像を、このゲームを遊ぶ以外の用途には使用しないで下さい<br>
+<br>
+<textarea id="output"></textarea>
+<script type="text/javascript">
+	var myModules = {};
+</script>
+<script type="text/javascript" defer src="lib/jquery/jquery-1.5.min.js"></script><!-- for animation -->
+<script type="text/javascript" defer src="lib/jquery.transitionAnimate.js"></script>
+<script type="text/javascript" src="../lib/my/my_client_and_server.js"></script>
+<script type="text/javascript">
+	var shorthands = ['DP', 'LOG', 'ASSERT', 'DIR', 'DPD'];
+	for (var i = 0, len = shorthands.length; i < len; i++) {
+		window[shorthands[i]] = myModules.mycs[shorthands[i]];
+	}
+</script>
+<script type="text/javascript" src="../client_and_server/client_and_server.js"></script><!-- Don't add defer for loading socket.io. --> 
+<script type="text/javascript">
+	// Can't load in script's load listener. It is too late.
+	if (myModules.cs.USE_SOCKETIO) {
+		document.write('<script type="text/javascript" src="../lib/socket.io-client/socket.io.js"></scri' + 'pt>');
+	}
+</script>
+<script type="text/javascript">
+	// Don't merge upper script tag. WEB_SOCKET_SWF_LOCATION will be overwritten by evaluation of script tag in document.write().
+	if (myModules.cs.USE_SOCKETIO) {
+		WEB_SOCKET_SWF_LOCATION = '../lib/socket.io-client/lib/vendor/web-socket-js/WebSocketMain.swf';
+	}
+</script>
+<script type="text/javascript" defer src="../lib/my/my_client.js"></script>
+<script type="text/javascript" defer src="client.js"></script>
+
+</body>
+</html>
+
